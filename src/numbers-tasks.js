@@ -18,6 +18,7 @@
  *   5, 10 => 50
  *   5, 5  => 25
  */
+//! Для получения площади умножаем ширины на высоту
 function getRectangleArea(width, height) {
   return width * height;
 }
@@ -33,6 +34,7 @@ function getRectangleArea(width, height) {
  *   3.14 => 19.729201864543903
  *   0    => 0
  */
+//! Для вычисления длины окружности по заданному радиусу круга используем формулу C = 2 * π * R
 function getCircleCircumference(radius) {
   return 2 * Math.PI * radius;
 }
@@ -49,6 +51,8 @@ function getCircleCircumference(radius) {
  *  10, 0  => 5
  *  -3, 3  => 0
  */
+//! Чтобы получить среднее число между двумя числами надо сложить числа и поделить на 2, но еще
+//! добавлена проверка является ли результат конечные число а не infinity
 function getAverage(value1, value2) {
   const sum = (value1 + value2) / 2;
   return Number.isFinite(sum) ? sum : Number.MAX_VALUE;
@@ -69,8 +73,9 @@ function getAverage(value1, value2) {
  *   (0,0) (1,0)    => 1
  *   (-5,0) (10,-10) => 18.027756377319946
  */
-function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+//! Для вычисления расстояния между двумя точками в декартовых координатах используем формулу d = √((x2 - x1)² + (y2 - y1)²)
+function getDistanceBetweenPoints(x1, y1, x2, y2) {
+  return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 }
 
 /**
@@ -85,8 +90,9 @@ function getDistanceBetweenPoints(/* x1, y1, x2, y2 */) {
  *   x + 8 = 0       => -8
  *   5*x = 0         => 0
  */
-function getLinearEquationRoot(/* a, b */) {
-  throw new Error('Not implemented');
+//! Для нахождения корня линейного уравнения используем формулу x = -b /a
+function getLinearEquationRoot(a, b) {
+  return -b / a;
 }
 
 /**
@@ -107,8 +113,14 @@ function getLinearEquationRoot(/* a, b */) {
  *   (0,1) (0,1)     => 0
  *   (0,1) (1,2)     => 0
  */
-function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
-  throw new Error('Not implemented');
+//! Чтобы найти угол между двумя векторами по координатам x1x2y1y2 используем формулу
+//! θ = arccos((x₁ * x₂ + y₁ * y₂) / (sqrt(x₁² + y₁²) * sqrt(x₂² + y₂²)))
+function getAngleBetweenVectors(x1, y1, x2, y2) {
+  const radians = Math.acos(
+    (x1 * x2 + y1 * y2) /
+      (Math.sqrt(x1 ** 2 + y1 ** 2) * Math.sqrt(x2 ** 2 + y2 ** 2))
+  );
+  return radians;
 }
 
 /**
@@ -124,8 +136,8 @@ function getAngleBetweenVectors(/* x1, y1, x2, y2 */) {
  *     5     => 5
  *     0     => 0
  */
-function getLastDigit(/* value */) {
-  throw new Error('Not implemented');
+function getLastDigit(value) {
+  return value % 10;
 }
 
 /**
@@ -139,8 +151,8 @@ function getLastDigit(/* value */) {
  *     '37'     => 37
  * '-525.5'     => -525.5
  */
-function parseNumberFromString(/* value */) {
-  throw new Error('Not implemented');
+function parseNumberFromString(value) {
+  return +value;
 }
 
 /**
@@ -156,8 +168,9 @@ function parseNumberFromString(/* value */) {
  *   3,3,3   => 5.196152422706632
  *   1,2,3   => 3.741657386773941
  */
-function getParallelepipedDiagonal(/* a, b, c */) {
-  throw new Error('Not implemented');
+//! Для нахождения длины диагонали берем квадратный корень из суммы квадратов сторон d = √(a² + b² + c²)
+function getParallelepipedDiagonal(a, b, c) {
+  return Math.sqrt(a ** 2 + b ** 2 + c ** 2);
 }
 
 /**
@@ -177,8 +190,13 @@ function getParallelepipedDiagonal(/* a, b, c */) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+//! Округляем число до заданной степени с помощью деления на 10 в заданной степени(pow), возвращаем результат умножив его на 10 в заданной степени
+function roundToPowerOfTen(num, pow) {
+  if (pow === 0) {
+    return num;
+  }
+  const result = Math.round(num / 10 ** pow);
+  return result * 10 ** pow;
 }
 
 /**
@@ -198,8 +216,14 @@ function roundToPowerOfTen(/* num, pow */) {
  *   16 => false
  *   17 => true
  */
-function isPrime(/* n */) {
-  throw new Error('Not implemented');
+//! Проверка является ли число простым с помощью цикла, если число делится без остатка тто это не простое число
+function isPrime(n) {
+  for (let i = 2; i < n; i += 1) {
+    if (n % i === 0) {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -217,8 +241,9 @@ function isPrime(/* n */) {
  *   toNumber(42, 0) => 42
  *   toNumber(new Number(42), 0) => 42
  */
-function toNumber(/* value, def */) {
-  throw new Error('Not implemented');
+//! Преобразуем первый аргумент в число, затем проверяем isnan если false тогда возвращаем второй аргумент, если true тогда первый
+function toNumber(value, def) {
+  return Number.isNaN(+value) ? def : +value;
 }
 
 /**
@@ -232,8 +257,9 @@ function toNumber(/* value, def */) {
  *   -2 => -8
  *   0  => 0
  */
-function getCube(/* num */) {
-  throw new Error('Not implemented');
+//! Возводим число в степень 3
+function getCube(num) {
+  return num ** 3;
 }
 
 /**
@@ -249,8 +275,21 @@ function getCube(/* num */) {
  *   3  => 2
  *   10 => 55
  */
-function getFibonacciNumber(/* index */) {
-  throw new Error('Not implemented');
+//! Возвращаем число фибоначчи с указанного индекса, путем сложения переменных prev и current и замены их значения для следующего шага
+function getFibonacciNumber(index) {
+  if (index === 0) return 0;
+  if (index < 3) return 1;
+
+  let prev = 0;
+  let current = 1;
+
+  for (let i = 2; i <= index; i += 1) {
+    const next = prev + current;
+    prev = current;
+    current = next;
+  }
+
+  return current;
 }
 
 /**
@@ -279,8 +318,9 @@ function getSumToN(/* n */) {
  *   202 => 4  // (2+0+2)
  *   5   => 5  // 5
  */
-function getSumOfDigits(/* num */) {
-  throw new Error('Not implemented');
+//! Создаем массив преобразовав число num в строку, затем с помощью метода reduce прибавляем в acc все числа в массиве и получаем сумму цифр числа
+function getSumOfDigits(num) {
+  return Array.from(String(num), Number).reduce((acc, item) => acc + item);
 }
 
 /**
@@ -294,8 +334,9 @@ function getSumOfDigits(/* num */) {
  *   16  => true
  *   15  => false
  */
-function isPowerOfTwo(/* num */) {
-  throw new Error('Not implemented');
+//! Используем Math.log2 для вычисления двоичного логарифма, затем делим без остатка, и если остаток равен 0 то число является степерью 2
+function isPowerOfTwo(num) {
+  return Math.log2(num) % 1 === 0;
 }
 
 /**
